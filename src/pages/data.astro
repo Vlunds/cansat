@@ -1,0 +1,31 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Micropy</title>
+    </head>
+    <body>
+        <p id="response"></p>
+    </body>
+</html>
+<script>
+    // Skift til aktuel microcontroller IP!!!
+    const ip = "192.168.4.1";
+    const p = document.querySelector("#response");
+    async function getData() {
+        if (!ip) return;
+        console.log(`Forbinder til: ${ip}`);
+        let data = "";
+        try {
+            const res = await fetch(`http://${ip}`);
+            data = await res.text();
+        } catch (e) {
+            console.log(e);
+        }
+        console.log(`Data modtaget: ${data}`);
+        p.innerHTML = data;
+    }
+    getData();
+</script>
