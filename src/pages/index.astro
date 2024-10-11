@@ -11,7 +11,72 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>CanSat hej's Version</h1>
-		<a href="/data">Side2</a>
+		<div class="header">
+			<p class=headline>
+				CanSat
+			</p>
+		</div>
+		<div class="divider"></div>
+		<div class="content1">
+			<div class="box"><a href="/data">Data</a></div>
+			<div class="box">2</div>
+		  </div>
 	</body>
 </html>
+
+<style>
+	.header {
+		height: 200px;
+		width: 20%;
+		margin: auto;
+		text-align: center;
+		line-height: 200px;
+		background-color: rgb(0, 0, 37);
+	}
+
+	.headline {
+		text-align: center;
+		font-size: 100px;
+		color: white;
+	}
+
+	.content1 {
+  		color: #fff;
+ 		height: 150px;
+  		width: 100%;
+  		text-align: center;
+		line-height: 150px;
+		font-size: 20px;
+	}
+
+	.divider {
+		height: 125px;
+	}
+
+	.content1 div {
+  		height: 150px;
+ 		width: 300px;
+	}
+
+	.box {
+		margin-left: auto;
+		margin-right: auto;
+ 		background: gray;
+	}
+
+	.content1 {
+  		display: flex;
+  		flex-wrap: nowrap;
+	}
+
+	body {
+		background-color: rgb(0, 0, 37);
+	}
+
+	a {
+		text-decoration: none;
+		color: white;
+		font-size: 64px;
+	}
+
+</style>
