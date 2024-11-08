@@ -1,0 +1,41 @@
+---
+import { supabase } from "../lib/supabase";
+const { data, error } = await supabase.from("measurements").select();
+console.log(data);
+console.log(error);
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Micropy</title>
+    </head>
+    <body>
+        <h1>testside</h1>
+        <p id="response"></p>
+        <div class="box"><a href="/">Hjem</a></div>
+        <ul>
+            {
+                data.map((row) => (
+                    <li>
+                        Trykket er: {row.Tryk} og temperaturen er:{" "}
+                        {row.Temperatur}
+                    </li>
+                ))
+            }
+        </ul>
+    </body>
+</html>
+<script>
+    const Tryk = Astro.url.searchParams.get("Tryk");
+    console.log(`Tryk received: ${Tryk}`);
+    if (Tryk) {
+        const { data, error } = await supabase
+            .from("measurements")
+            .insert({ Tryk: parseInt(Tryk) });
+        if (error) console.log(`Insert error: ${error}`);
+    }
+</script>
