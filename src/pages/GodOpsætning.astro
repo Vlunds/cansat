@@ -1,0 +1,107 @@
+---
+import { supabase } from "../lib/supabase";
+const { data, error } = await supabase.from("measurements").select();
+console.log(data);
+console.log(error);
+---
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Micropy - Målinger</title>
+    <style>
+        /* Grundlæggende styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #555;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #response {
+            text-align: center;
+            font-size: 1.2em;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .box a {
+            color: #007acc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .box a:hover {
+            text-decoration: underline;
+        }
+
+        /* Data liste styling */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        li {
+            background: #ffffff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 1em;
+        }
+
+        li:nth-child(even) {
+            background: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Micropy Målinger</h1>
+    <p id="response">Loading data...</p>
+    <div class="box">
+        <a href="/">Hjem</a>
+    </div>
+    <ul>
+        {
+            data.map((row) => (
+                <li>
+                    Trykket er: {row.Tryk} og temperaturen er:{" "}
+                    {row.Temperatur}
+                </li>
+            ))
+        }
+    </ul>
+</body>
+
+<script>
+    import { supabase } from "../lib/supabase";
+    const { data, error } = await supabase.from("measurements").select();
+    console.log(data);
+    console.log(error);
+
+    const Tryk = Astro.url.searchParams.get("Tryk");
+    console.log(`Tryk received: ${Tryk}`);
+    if (Tryk) {
+        const { data, error } = await supabase
+            .from("measurements")
+            .insert({ Tryk: parseInt(Tryk) });
+        if (error) console.log(`Insert error: ${error}`);
+    }
+</script>
+</html>
