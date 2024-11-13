@@ -1,5 +1,16 @@
 ---
-
+import { supabase } from "../lib/supabase";
+const { data, error } = await supabase.from("measurements").select();
+console.log(data);
+console.log(error);
+const Temperatur = Astro.url.searchParams.get("Temperatur");
+console.log(`Temperatur received: ${Temperatur}`);
+if (Temperatur) {
+    const { data, error } = await supabase
+        .from("measurements")
+        .insert({ Temperatur: parseInt(Temperatur), Tryk:0 });
+    if (error) console.log(`Insert error: ${error}`);
+}
 ---
 
 <html lang="en">
@@ -25,6 +36,10 @@
             </ul>
         </div>
         <p id="response"></p>
+        <ul>
+
+        
+        </ul>
     </body>
 </html>
 
