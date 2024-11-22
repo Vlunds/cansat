@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase";
 const { data, error } = await supabase.from("measurements").select();
 console.log(data);
 console.log(error);
+import '../css/generalstyle.css';
 ---
 
 <html lang="en">
@@ -14,6 +15,15 @@ console.log(error);
         <title>Micropy</title>
     </head>
     <body>
+        <div class="topnav">
+            <a class="small" href="/"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.iconsdb.com%2Ficons%2Fdownload%2Fwhite%2Farrow-121-512.png&f=1&nofb=1&ipt=8d9dd49a1cb8b921ce939576cd0d6c0b69f42f4bad36f88b163f3f3133dc86ab&ipo=images" height="51" width="51"/></a>
+            <a class="large" href="data">Måling</a>
+            <a class="active large" href="/log">Log</a>
+        </div>
+        <div class="sidenav">
+            <a class="active1" href="#">Termometer</a>
+            <a href="#">Barometer</a>
+        </div>
         <h1>testsiden</h1>
         <p id="response"></p>
         <div class="box"><a href="/">Hjem</a></div>

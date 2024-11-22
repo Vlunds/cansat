@@ -1,1 +1,80 @@
 
+body {
+    background-color: rgb(30, 30, 30);
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+  
+  .topnav {
+    background-color: rgb(50, 50, 50);
+    z-index: 1;
+    height: 97px;
+    width: 100%;
+    top: 0;
+    display: flex;
+  }
+  
+  .topnav a {
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+    padding: 23px 0px 23px 0px; 
+    font-size: 51px;
+  }
+  
+  .small {
+    flex: 2;
+  }
+
+  .large {
+    flex: 4; 
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .active {
+    background-color: rgb(4, 109, 170);
+    color: white;
+  }
+
+    .active1 {
+    background-color: #aaaaaa;
+    color: white;
+  }
+
+
+/* The sidebar menu */
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 20%; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    top: 97px; /* Stay at the top */
+    left: 0;
+    background-color: rgb(70, 70, 70); /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 30px;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 10px 0px 10px 30px;
+    text-decoration: none;
+    font-size: 30px;
+    color: white;
+    display: block;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Style page content */
+  .main {
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+  }
+  

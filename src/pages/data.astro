@@ -1,16 +1,5 @@
 ---
-import { supabase } from "../lib/supabase";
-const { data, error } = await supabase.from("measurements").select();
-console.log(data);
-console.log(error);
-const Temperatur = Astro.url.searchParams.get("Temperatur");
-console.log(`Temperatur received: ${Temperatur}`);
-if (Temperatur) {
-    const { data, error } = await supabase
-        .from("measurements")
-        .insert({ Temperatur: parseInt(Temperatur), Tryk:0 });
-    if (error) console.log(`Insert error: ${error}`);
-}
+import '../css/generalstyle.css';
 ---
 
 <html lang="en">
@@ -22,63 +11,22 @@ if (Temperatur) {
         <title>Micropy</title>
     </head>
     <body>
-        <div class="header">
-            <div class="headline"><h1>Måling</h1></div>
-            <div class="headline"><h1>LOG</h1></div>
+        <div class="topnav">
+            <a class="small" href="/"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.iconsdb.com%2Ficons%2Fdownload%2Fwhite%2Farrow-121-512.png&f=1&nofb=1&ipt=8d9dd49a1cb8b921ce939576cd0d6c0b69f42f4bad36f88b163f3f3133dc86ab&ipo=images" height="51" width="51"/></a>
+            <a class="active large" href="data">Måling</a>
+            <a class="large" href="/log">Log</a>
         </div>
-        <div class="sidebar">
-            <h2>Sidebar</h2>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
+        <div class="sidenav">
+            <a class="active1" href="#">Termometer</a>
+            <a href="#">Barometer</a>
         </div>
         <p id="response"></p>
         <ul>
-
-        
         </ul>
     </body>
 </html>
 
 <style>
-    body {
-        background-color: rgb(0, 0, 37);
-    }
-   
-    .headline {
-        color: white;
-        background-color:blueviolet;
-        width: 100%;
-        text-align: center;
-        margin: 2px;
-        margin-right: 1px;
-        margin-left: 1px;
-    }
-
-    .header {
-  		display: flex;
-        flex-wrap: nowrap;
-        background-color:white;
-	}
-
-    .sidebar {
-        width: 250px; /* Adjust the width as needed */
-        height: 100vh; /* Full height */
-        position: fixed; /* Fixed position */
-        left: 0;
-        top: 0;
-        background-color: #333; /* Background color */
-        color: white; /* Text color */
-        padding: 20px;
-        overflow-y: auto; /* Adds scrolling if content exceeds height */
-    }
-
-        .sidebar h2 {
-        margin-bottom: 20px;
-    }
 
 </style>
 
