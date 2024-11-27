@@ -31,8 +31,7 @@ body {
   }
 
   .topnav a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: #676767;
   }
   
   .active {
@@ -69,7 +68,7 @@ body {
   
   /* When you mouse over the navigation links, change their color */
   .sidenav a:hover {
-    color: #f1f1f1;
+    background-color: #676767;
   }
   
   /* Style page content */
