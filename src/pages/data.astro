@@ -11,7 +11,7 @@ console.log(`Tryk received: ${Temperatur}`);
 if (Temperatur) {
     const { data, error } = await supabase
         .from("measurements")
-        .insert({ Temperatur: parseInt(Temperatur), Tryk:9 });
+        .insert({ Temperatur: parseInt(Temperatur), Tryk: parseInt(Tryk) });
     if (error) console.log(`Insert error: ${error}`);
 }
 ---
