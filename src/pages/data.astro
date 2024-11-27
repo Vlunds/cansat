@@ -8,7 +8,7 @@ const Temperatur = Astro.url.searchParams.get("Temperatur");
 console.log(`Temperatur received: ${Temperatur}`);
 const Tryk = Astro.url.searchParams.get("Tryk");
 console.log(`Tryk received: ${Tryk}`);
-if (Tryk) {
+if (Tryk||Temperatur) {
     const { data, error } = await supabase
         .from("measurements")
         .insert({ Tryk: parseInt(Tryk), Temperatur: parseInt(Temperatur) });
