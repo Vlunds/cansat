@@ -12,7 +12,7 @@ import '../css/generalstyle.css';
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
-        <title>Micropy</title>
+        <title>Micropy -- målinger</title>
     </head>
     <body>
         <div class="topnav">
@@ -21,25 +21,32 @@ import '../css/generalstyle.css';
             <a class="active large" href="/log">Log</a>
         </div>
         <div class="sidenav">
-            <a class="active1" href="#">Termometer</a>
+            <a class="active1" href="/data">Lige nu</a>
+            <a href="#">Termometer</a>
             <a href="#">Barometer</a>
         </div>
-        <h1>testsiden</h1>
-        <p id="response"></p>
-        <div class="box"><a href="/">Hjem</a></div>
-        <ul>
-            {
-                data.map((row) => (
-                    <li>
-                        Trykket er: {row.Tryk} og temperaturen er:{" "}
-                        {row.Temperatur}
-                    </li>
-                ))
-            }
-        </ul>
+        <div class="main">
+            <p id="response">Loading data...</p>
+            <ul>
+                {
+                    data.map((row) => (
+                        <li>
+                            Trykket er: {row.Tryk} og temperaturen er:{" "}
+                            {row.Temperatur}
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
     </body>
 </html>
 <script>
+
+    import { supabase } from "../lib/supabase";
+    const { data, error } = await supabase.from("measurements").select();
+    console.log(data);
+    console.log(error);
+
     const Tryk = Astro.url.searchParams.get("Tryk");
     console.log(`Tryk received: ${Tryk}`);
     if (Tryk) {
@@ -48,4 +55,56 @@ import '../css/generalstyle.css';
             .insert({ Tryk: parseInt(Tryk) });
         if (error) console.log(`Insert error: ${error}`);
     }
+
 </script>
+
+<style>
+    h1 {
+        color: #555;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    #response {
+        text-align: center;
+        font-size: 1.2em;
+        color: #777;
+        margin-bottom: 20px;
+    }
+
+    .box {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .box a {
+        color: #007acc;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .box a:hover {
+        text-decoration: underline;
+    }
+
+    /* Data liste styling */
+    ul {
+        list-style-type: none;
+        padding: 0;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    li {
+        background: #ffffff;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        font-size: 1em;
+    }
+
+    li:nth-child(even) {
+        background: #f2f2f2;
+    }
+</style>
