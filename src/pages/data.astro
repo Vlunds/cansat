@@ -7,7 +7,7 @@ console.log(error);
 const Temperatur = Astro.url.searchParams.get("Temperatur");
 console.log(`Temperatur received: ${Temperatur}`);
 const Tryk = Astro.url.searchParams.get("Tryk");
-console.log(`Tryk received: ${Temperatur}`);
+console.log(`Tryk received: ${Tryk}`);
 if (Temperatur) {
     const { data, error } = await supabase
         .from("measurements")
