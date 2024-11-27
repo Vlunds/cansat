@@ -3,7 +3,7 @@ import { supabase } from "../lib/supabase";
 const { data, error } = await supabase.from("measurements").select();
 console.log(data);
 console.log(error);
-import "../css/generalstyle.css";
+import '../css/generalstyle.css';
 ---
 
 <html lang="en">
@@ -16,13 +16,7 @@ import "../css/generalstyle.css";
     </head>
     <body>
         <div class="topnav">
-            <a class="small" href="/"
-                ><img
-                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.iconsdb.com%2Ficons%2Fdownload%2Fwhite%2Farrow-121-512.png&f=1&nofb=1&ipt=8d9dd49a1cb8b921ce939576cd0d6c0b69f42f4bad36f88b163f3f3133dc86ab&ipo=images"
-                    height="51"
-                    width="51"
-                /></a
-            >
+            <a class="small" href="/"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.iconsdb.com%2Ficons%2Fdownload%2Fwhite%2Farrow-121-512.png&f=1&nofb=1&ipt=8d9dd49a1cb8b921ce939576cd0d6c0b69f42f4bad36f88b163f3f3133dc86ab&ipo=images" height="51" width="51"/></a>
             <a class="large" href="data">Måling</a>
             <a class="active large" href="/log">Log</a>
         </div>
@@ -46,73 +40,22 @@ import "../css/generalstyle.css";
         </div>
     </body>
 </html>
-<script type="module">
-    import { createClient } from "@supabase/supabase-js";
+<script>
 
-    const supabase = createClient(
-        "https://ugiorbfaokwxjycleowo.supabase.co/",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnaW9yYmZhb2t3eGp5Y2xlb3dvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA0NjM3NzIsImV4cCI6MjA0NjAzOTc3Mn0.odpcSq-BBEFEz4qf_eUZNgg9JNBzW6kFO7f7Wq-LObk",
-    );
+    import { supabase } from "../lib/supabase";
+    const { data, error } = await supabase.from("measurements").select();
+    console.log(data);
+    console.log(error);
 
-    // Funktion til at hente data og opdatere HTML
-    async function fetchData() {
-        const { data, error } = await supabase.from("Temperatur").select();
-
-        if (error) {
-            console.error("Fejl ved hentning af data:", error);
-            return;
-        }
-
-        let datastr = "";
-
-        // Generer HTML for hvert element i data
-        data.forEach((row) => {
-            datastr += `
-            <tr>
-                <td>Måling ${row.id}</td>
-                <td>${row.pets} °C</td>
-                <td>${row.tryk} hPa</td>
-                <td>${new Date(row.created_at).toLocaleString()}</td>
-            </tr>`;
-        });
-
-        console.log(datastr); // Log data for at se HTML-strengen
-
-        // Opdater HTML med den genererede tabelrække
-        let databody = document.querySelector("#databody");
-        if (databody) {
-            databody.innerHTML = datastr;
-        } else {
-            console.error("Element med id 'databody' blev ikke fundet.");
-        }
+    const Tryk = Astro.url.searchParams.get("Tryk");
+    console.log(`Tryk received: ${Tryk}`);
+    if (Tryk) {
+        const { data, error } = await supabase
+            .from("measurements")
+            .insert({ Tryk: parseInt(Tryk) });
+        if (error) console.log(`Insert error: ${error}`);
     }
 
-    // Supabase Real-time lytning til ændringer i tabellen 'Temperatur'
-    function subscribeToRealTimeUpdates() {
-        const subscription = supabase
-            .channel("temperatur-realtime")
-            .on(
-                "postgres_changes",
-                {
-                    event: "*",
-                    schema: "public",
-                    table: "Temperatur",
-                },
-                (payload) => {
-                    console.log("Real-time update:", payload);
-                    fetchData(); // Hent data og opdater UI ved ændringer
-                },
-            )
-            .subscribe();
-    }
-
-    // Kald funktionen for at få initial data og abonnere på real-time opdateringer
-    async function initialize() {
-        await fetchData(); // Først hent data
-        subscribeToRealTimeUpdates(); // Abonner på real-time opdateringer
-    }
-
-    initialize(); // Initialiser funktionerne ved at kalde dem
 </script>
 
 <style>
