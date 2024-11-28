@@ -3,7 +3,7 @@ import { supabase } from "../lib/supabase";
 const { data, error } = await supabase.from("measurements").select();
 console.log(data);
 console.log(error);
-import '../css/generalstyle.css';
+import "../css/generalstyle.css";
 ---
 
 <html lang="en">
@@ -16,23 +16,29 @@ import '../css/generalstyle.css';
     </head>
     <body>
         <div class="topnav">
-            <a class="small" href="/"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.iconsdb.com%2Ficons%2Fdownload%2Fwhite%2Farrow-121-512.png&f=1&nofb=1&ipt=8d9dd49a1cb8b921ce939576cd0d6c0b69f42f4bad36f88b163f3f3133dc86ab&ipo=images" height="51" width="51"/></a>
+            <a class="small" href="/"
+                ><img
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.iconsdb.com%2Ficons%2Fdownload%2Fwhite%2Farrow-121-512.png&f=1&nofb=1&ipt=8d9dd49a1cb8b921ce939576cd0d6c0b69f42f4bad36f88b163f3f3133dc86ab&ipo=images"
+                    height="51"
+                    width="51"
+                /></a
+            >
             <a class="large" href="data">Måling</a>
             <a class="active large" href="/log">Log</a>
         </div>
         <div class="sidenav">
-            <a class="active1" href="/data">Lige nu</a>
-            <a href="#">Termometer</a>
-            <a href="#">Barometer</a>
+            <a class="active1" href="/log">Log</a>
         </div>
         <div class="main">
-            <p id="response">Loading data...</p>
+            <p id="titel">Tidligere målinger</p>
             <ul>
                 {
                     data.map((row) => (
                         <li>
-                            Trykket er: {row.Tryk} og temperaturen er:{" "}
-                            {row.Temperatur}
+                            <span class="list-text">
+                                Trykket er: {row.Tryk} og temperaturen er:{" "}
+                                {row.Temperatur}
+                            </span>
                         </li>
                     ))
                 }
@@ -41,7 +47,6 @@ import '../css/generalstyle.css';
     </body>
 </html>
 <script>
-
     import { supabase } from "../lib/supabase";
     const { data, error } = await supabase.from("measurements").select();
     console.log(data);
@@ -55,56 +60,76 @@ import '../css/generalstyle.css';
             .insert({ Tryk: parseInt(Tryk) });
         if (error) console.log(`Insert error: ${error}`);
     }
-
 </script>
 
 <style>
-    h1 {
-        color: #555;
+    #titel {
         text-align: center;
-        margin-bottom: 20px;
-    }
-
-    #response {
-        text-align: center;
-        font-size: 1.2em;
-        color: #777;
-        margin-bottom: 20px;
-    }
-
-    .box {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .box a {
-        color: #007acc;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .box a:hover {
-        text-decoration: underline;
+        font-size: 30px;
+        color: #fff;
+        padding-bottom: 0px;
     }
 
     /* Data liste styling */
     ul {
         list-style-type: none;
         padding: 0;
-        max-width: 600px;
+        max-width: 100%;
         margin: 0 auto;
     }
 
+    .main {
+        padding: 5px 0px 5px 0px; /*overrider generalstyle.ccs*/
+    }
+
     li {
-        background: #ffffff;
+        background: rgb(39, 39, 39);
         margin: 10px 0;
         padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        font-size: 1em;
+        font-size: 16px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        position: relative; /* Sørger for, at teksten bliver ovenpå highlighten */
+        z-index: 0;
+    }
+
+    li::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 15%; /* Start 25% fra venstre */
+        width: 70%; /* Dækker midten - 50% af bredden */
+        height: 100%; /* Fuld højde */
+        background: rgba(255, 255, 255, 0.3); /* Fremhævet farve */
+        z-index: 0; /* Sørg for, at den ligger bag teksten */
+    }
+
+    li::after {
+    content: counter(list-item) ". "; /* Giver nummereringen */
+    position: absolute;
+    top: 50%; /* Centrerer vertikalt */
+    left: 12%; /* Justerer til venstre side af det ikke-highlightede område */
+    transform: translateY(-50%); /* Center vertikalt */
+    font-size: 20px;
+    color: lightgray; /* Farve på nummeret */
+    z-index: 2; /* Sørger for, at nummeret er over highlight */
     }
 
     li:nth-child(even) {
-        background: #f2f2f2;
+        background: #3d3d3d;
+    }
+
+    .list-text {
+        position: relative; /* Sørger for, at den respekterer li's stacking */
+        z-index: 1; /* Sørger for, at teksten vises over highlighten */
+        color: white; /* Sikrer god kontrast mod baggrunden */
+    }
+
+    li span {
+        position: relative; /* Sørger for, at teksten bliver ovenpå highlighten */
+        z-index: 1; /* Sørger for, at teksten vises foran highlighten */
+        text-align: left; /* Sørg for at teksten aligner til venstre */
+        padding-left: 16%; /* Placerer teksten lidt væk fra venstre kant */
     }
 </style>
