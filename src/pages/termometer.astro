@@ -21,6 +21,17 @@ import '../css/generalstyle.css';
             <a class="active1" href="/termometer">Termometer</a>
             <a href="/barometer">Barometer</a>
         </div>
+        <div class="main">
+            <p id="titel">Termometer</p>
+            
+            <!-- Termometer Container -->
+            <div class="thermometer-container">
+                <div class="thermometer">
+                    <div class="thermometer-level" id="tempLevel"></div>
+                </div>
+                <p>Temperatur: <span id="tempValue">0</span>°C</p>
+            </div>
+        </div>
         <p id="response"></p>
         <ul>
         </ul>
@@ -28,7 +39,38 @@ import '../css/generalstyle.css';
 </html>
 
 <style>
+/* Termometer Layout */
+.thermometer-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
 
+.thermometer {
+    width: 40px;
+    height: 300px;
+    background-color: #ddd;
+    border-radius: 20px;
+    margin: 20px auto;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.thermometer-level {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0; /* Default height */
+    background-color: rgb(255, 0, 0); /* Red color for temperature level */
+    border-radius: 20px;
+}
+
+#tempValue {
+    font-size: 24px;
+    color: #fff;
+}
 </style>
 
 <script>
@@ -49,4 +91,29 @@ import '../css/generalstyle.css';
         p.innerHTML = data;
     }
     getData();
+
+     // Function to update the temperature level
+     function updateTemperature(temp) {
+        // Find the thermometer level element
+        const tempLevel = document.getElementById('tempLevel');
+        const tempValue = document.getElementById('tempValue');
+        
+        // Update the displayed temperature
+        tempValue.textContent = temp;
+
+        // Calculate the height of the thermometer level based on temperature
+        // Let's assume the max temperature is 100°C and min is -10°C
+        const minTemp = -20;
+        const maxTemp = 40;
+        const range = maxTemp - minTemp;
+        const levelHeight = ((temp - minTemp) / range) * 100; // This gives us the percentage
+
+        // Apply the height to the thermometer
+        tempLevel.style.height = `${levelHeight}%`;
+    }
+
+    // Simulate temperature update (you can replace this with dynamic data from an API)
+    let currentTemp = 10; // Start with 5°C
+    updateTemperature(currentTemp);
+    
 </script>
