@@ -37,7 +37,20 @@ if (Tryk||Temperatur) {
         </div>
         <div class="main">
             <p id="response"></p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id ipsum ipsam, enim, iusto minima facilis commodi harum esse, doloribus tempore quas aperiam voluptatem molestiae. Ad deserunt neque facilis eum ut?</p>
+        </div>
+        <div class="main">
+            <p id="titel">Nyeste måling</p>
+            <ul>
+                <!-- Tjek om der er data -->
+                {data.length > 0 && (
+                    <li>
+                        <span class="list-text">
+                            Trykket er: {data[data.length - 1].Tryk} og temperaturen er:{" "}
+                            {data[data.length - 1].Temperatur}
+                        </span>
+                    </li>
+                )}
+            </ul>
         </div>
         <ul>
         </ul>
@@ -67,4 +80,9 @@ if (Tryk||Temperatur) {
     }
     getData();
     
+</script>
+<script>
+    setInterval(function() {
+        location.reload(); // Genindlæs siden
+    }, 500); // 5000 ms = 5 sekunder
 </script>
