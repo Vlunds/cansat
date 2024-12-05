@@ -1,5 +1,19 @@
 ---
 import '../css/generalstyle.css';
+import { supabase } from "../lib/supabase";
+const { data, error } = await supabase.from("measurements").select();
+console.log(data);
+console.log(error);
+const Temperatur = Astro.url.searchParams.get("Temperatur");
+console.log(`Temperatur received: ${Temperatur}`);
+const Tryk = Astro.url.searchParams.get("Tryk");
+console.log(`Tryk received: ${Tryk}`);
+if (Tryk||Temperatur) {
+    const { data, error } = await supabase
+        .from("measurements")
+        .insert({ Tryk: parseInt(Tryk), Temperatur: parseInt(Temperatur) });
+    if (error) console.log(`Insert error: ${error}`);
+}
 ---
 
 <html lang="en">
@@ -32,9 +46,6 @@ import '../css/generalstyle.css';
                 <p>Temperatur: <span id="tempValue">0</span>°C</p>
             </div>
         </div>
-        <p id="response"></p>
-        <ul>
-        </ul>
     </body>
 </html>
 
@@ -74,8 +85,8 @@ import '../css/generalstyle.css';
 </style>
 
 <script>
-    // Skift til aktuel microcontroller IP!!!
-    const ip = "192.168.4.1";
+   // Skift til aktuel microcontroller IP!!!
+   const ip = "192.168.4.1";
     const p = document.querySelector("#response");
     async function getData() {
         if (!ip) return;
@@ -91,29 +102,26 @@ import '../css/generalstyle.css';
         p.innerHTML = data;
     }
     getData();
+    
+    setInterval(function() {
+        location.reload(); // Genindlæs siden
+    }, 4000);
 
-     // Function to update the temperature level
      function updateTemperature(temp) {
-        // Find the thermometer level element
         const tempLevel = document.getElementById('tempLevel');
         const tempValue = document.getElementById('tempValue');
         
-        // Update the displayed temperature
         tempValue.textContent = temp;
 
-        // Calculate the height of the thermometer level based on temperature
-        // Let's assume the max temperature is 100°C and min is -10°C
         const minTemp = -20;
         const maxTemp = 40;
         const range = maxTemp - minTemp;
-        const levelHeight = ((temp - minTemp) / range) * 100; // This gives us the percentage
+        const levelHeight = ((temp - minTemp) / range) * 100;
 
-        // Apply the height to the thermometer
         tempLevel.style.height = `${levelHeight}%`;
     }
 
-    // Simulate temperature update (you can replace this with dynamic data from an API)
-    let currentTemp = 10; // Start with 5°C
+    let currentTemp = 5;
     updateTemperature(currentTemp);
     
 </script>

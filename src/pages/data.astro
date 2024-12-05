@@ -36,30 +36,20 @@ if (Tryk||Temperatur) {
             <a href="/barometer">Barometer</a>
         </div>
         <div class="main">
-            <p id="response"></p>
-        </div>
-        <div class="main">
-            <p id="titel">Nyeste måling</p>
-            <ul>
-                <!-- Tjek om der er data -->
-                {data.length > 0 && (
-                    <li>
-                        <span class="list-text">
-                            Trykket er: {data[data.length - 1].Tryk} og temperaturen er:{" "}
-                            {data[data.length - 1].Temperatur}
-                        </span>
-                    </li>
-                )}
-            </ul>
+            <p class="titel">Nyeste måling:</p>
+            {data.length > 0 && (
+            <span class="list-text">
+                Trykket er: {data[data.length - 1].Tryk}
+            </span>
+            <span class="list-text">
+                Temperaturen er: {data[data.length - 1].Temperatur}
+            </span>
+            )}
         </div>
         <ul>
         </ul>
     </body>
 </html>
-
-<style>
-
-</style>
 
 <script>
     // Skift til aktuel microcontroller IP!!!
@@ -80,9 +70,13 @@ if (Tryk||Temperatur) {
     }
     getData();
     
-</script>
-<script>
     setInterval(function() {
         location.reload(); // Genindlæs siden
     }, 4000);
 </script>
+
+<style>
+    .titel {
+        font-size: 30px;
+    }
+</style>

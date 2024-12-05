@@ -6,12 +6,12 @@ body {
   
   .topnav {
     background-color: rgb(50, 50, 50);
-    z-index: 1;
+    z-index: 1; /*sørger for at nav forbliver foran resten*/
     height: 97px;
     width: 100%;
     top: 0;
     display: flex;
-    position: fixed;
+    position: fixed; /*bevæger sig ikke på scroll*/
   }
   
   .topnav a {
@@ -23,11 +23,11 @@ body {
   }
   
   .small {
-    flex: 2;
+    flex: 2; /*sørger for størrelsen af nav elementerne*/
   }
 
   .large {
-    flex: 4; 
+    flex: 4; /*sørger for størrelsen af nav elementerne*/
   }
   
   .active {
@@ -41,18 +41,16 @@ body {
   }
 
 
-/* The sidebar menu */
 .sidenav {
-    height: 100%; /* Full-height: remove this if you want "auto" height */
-    width: 20%; /* Set the width of the sidebar */
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    top: 97px; /* Stay at the top */
+    height: 100%; 
+    width: 20%; 
+    position: fixed;
+    top: 97px;
     left: 0;
-    background-color: rgb(70, 70, 70); /* Black */
-    overflow-x: hidden; /* Disable horizontal scroll */
+    background-color: rgb(70, 70, 70); 
+    overflow-x: hidden; /*fjerner horisontal scroll*/
   }
   
-  /* The navigation menu links */
   .sidenav a {
     padding: 10px 0px 10px 30px;
     text-decoration: none;
@@ -61,16 +59,15 @@ body {
     display: block;
   }
   
-  /* Style page content */
   .main {
-    margin-left: 20%; /* Samme bredde som sidenav */
-    padding: 5px 20px 5px 20px; /* Giver lidt luft omkring teksten */
-    color: white; /* Sikrer god kontrast mod baggrunden */
+    margin-left: 20%; 
+    padding: 5px 20px 5px 20px; 
+    color: white; 
     margin-top: 97px;
   }
 
   .topnav a:hover, .sidenav a:hover {
     background-color: #676767;
-    transition: background-color 0.1s ease-in-out;
+    transition: background-color 0.1s ease-in-out; /*gør transitions bedre visuelt*/
   }
   

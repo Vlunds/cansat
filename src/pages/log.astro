@@ -37,7 +37,7 @@ import "../css/generalstyle.css";
                         <li>
                             <span class="list-text">
                                 Trykket er: {row.Tryk}, temperaturen er:{" "}
-                                {row.Temperatur} og tiden fra start er: {row.Tid}
+                                {row.Temperatur}
                             </span>
                         </li>
                     ))
@@ -72,7 +72,6 @@ import "../css/generalstyle.css";
         padding-bottom: 0px;
     }
 
-    /* Data liste styling */
     ul {
         list-style-type: none;
         padding: 0;
@@ -92,7 +91,7 @@ import "../css/generalstyle.css";
         color: white;
         position: relative;
         overflow: hidden;
-        position: relative; /* Sørger for, at teksten bliver ovenpå highlighten */
+        position: relative; 
         z-index: 0;
     }
 
@@ -100,22 +99,22 @@ import "../css/generalstyle.css";
         content: "";
         position: absolute;
         top: 0;
-        left: 15%; /* Start 25% fra venstre */
-        width: 70%; /* Dækker midten - 50% af bredden */
-        height: 100%; /* Fuld højde */
-        background: rgba(255, 255, 255, 0.3); /* Fremhævet farve */
-        z-index: 0; /* Sørg for, at den ligger bag teksten */
+        left: 15%; 
+        width: 70%; 
+        height: 100%; 
+        background: rgba(255, 255, 255, 0.3); 
+        z-index: 0; 
     }
 
     li::after {
-    content: counter(list-item) ". "; /* Giver nummereringen */
+    content: counter(list-item) ". "; /*giver tal*/
     position: absolute;
-    top: 50%; /* Centrerer vertikalt */
-    left: 12%; /* Justerer til venstre side af det ikke-highlightede område */
-    transform: translateY(-50%); /* Center vertikalt */
+    top: 50%; /*centrerer vertikalt*/
+    left: 12%;
+    transform: translateY(-50%); /*centrerer vertikalt*/
     font-size: 20px;
-    color: lightgray; /* Farve på nummeret */
-    z-index: 2; /* Sørger for, at nummeret er over highlight */
+    color: lightgray; 
+    z-index: 2; 
     }
 
     li:nth-child(even) {
@@ -123,15 +122,15 @@ import "../css/generalstyle.css";
     }
 
     .list-text {
-        position: relative; /* Sørger for, at den respekterer li's stacking */
-        z-index: 1; /* Sørger for, at teksten vises over highlighten */
-        color: white; /* Sikrer god kontrast mod baggrunden */
+        position: relative;
+        z-index: 1; 
+        color: white; 
     }
 
     li span {
-        position: relative; /* Sørger for, at teksten bliver ovenpå highlighten */
-        z-index: 1; /* Sørger for, at teksten vises foran highlighten */
-        text-align: left; /* Sørg for at teksten aligner til venstre */
-        padding-left: 16%; /* Placerer teksten lidt væk fra venstre kant */
+        position: relative; 
+        z-index: 1; 
+        text-align: left; 
+        padding-left: 16%; /
     }
 </style>
